@@ -1,0 +1,14 @@
+<svg viewBox="0 0 60 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Vertical guide -->
+  <line x1="30" y1="0" x2="30" y2="180" stroke="#e5e5e5" stroke-width="0.4" opacity="0.12"/>
+
+  <!-- Flowing curved path -->
+  <path d="M30 20 Q52 50 30 80 Q8 110 30 140 Q42 158 30 170"
+        fill="none" stroke="#e5e5e5" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Dot markers -->
+  <circle cx="30" cy="20"  r="2.5" fill="none" stroke="#e5e5e5" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="30" cy="80"  r="2.5" fill="none" stroke="#e5e5e5" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="30" cy="140" r="2.5" fill="none" stroke="#e5e5e5" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="30" cy="170" r="2.5" fill="none" stroke="#e5e5e5" stroke-width="0.8" opacity="0.4"/>
+</svg>
