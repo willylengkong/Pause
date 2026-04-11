@@ -18,7 +18,7 @@ const REFLECTIVE_MESSAGES = [
 
 /* ---- Timing constants ---- */
 const IDLE_THRESHOLD_MS = 15000; // show after 15s of no activity
-const MAX_INTERVAL_MS = 30000; // always show at least every 30s
+const MAX_INTERVAL_MS = 60000; // always show at least every 60s
 
 /* ---- Initialize popup logic ---- */
 document.addEventListener("DOMContentLoaded", () => {
