@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initActiveNavLinks();
   initFadeInObserver();
-  initSvgDrawObserver();
   initFaqAccordion();
 
   initFeelingsInteraction();
@@ -116,32 +115,6 @@ function initFadeInObserver() {
 
   elements.forEach((el) => observer.observe(el));
 }
-
-/* ============================================================
-   SVG draw animation — trigger on scroll into view
-   ============================================================ */
-function initSvgDrawObserver() {
-  // Target any element containing draw-path or draw-circle SVGs
-  const artContainers = document.querySelectorAll(
-    ".feeling-card-art, .about-art, .home-line-art",
-  );
-  if (!artContainers.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        entry.target.classList.add("is-drawn");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.3 },
-  );
-
-  artContainers.forEach((el) => observer.observe(el));
-}
-
 /* ============================================================
    FAQ accordion — accessible expand / collapse
    ============================================================ */
