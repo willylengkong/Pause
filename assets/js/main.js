@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initFadeInObserver();
   initSvgDrawObserver();
   initFaqAccordion();
+
+  initFeelingsInteraction();
+  initOkButton();
 });
 
 /* ============================================================
@@ -189,4 +192,35 @@ function setFaqState(button, panel, open) {
       { once: true },
     );
   }
+}
+
+function initFeelingsInteraction() {
+  const cards = document.querySelectorAll(".feeling-card");
+
+  const messages = {
+    tired: "ya... capek ya. boleh istirahat sebentar.",
+    anxious: "pelan-pelan. kamu aman sekarang.",
+    overthinking: "tidak semua harus kamu selesaikan hari ini.",
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const title = card
+        .querySelector(".feeling-title")
+        ?.textContent.toLowerCase();
+
+      if (messages[title]) {
+        showCustomMessage(messages[title]);
+      }
+    });
+  });
+}
+
+function initOkButton() {
+  const btn = document.getElementById("ok-button");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    showLoadingThenMessage("Everything is OK now");
+  });
 }

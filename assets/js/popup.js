@@ -17,8 +17,8 @@ const REFLECTIVE_MESSAGES = [
 ];
 
 /* ---- Timing constants ---- */
-const IDLE_THRESHOLD_MS = 15000; // show after 15s of no activity
-const MAX_INTERVAL_MS = 30000; // always show at least every 30s
+const IDLE_THRESHOLD_MS = 1500000; // show after 15s of no activity
+const MAX_INTERVAL_MS = 300000; // always show at least every 30s
 
 /* ---- Initialize popup logic ---- */
 document.addEventListener("DOMContentLoaded", () => {
@@ -109,4 +109,44 @@ function hidePopup(overlay) {
 /* ---- Pick random item from array ---- */
 function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function showCustomMessage(message) {
+  const overlay = document.getElementById("popup-overlay");
+  const messageEl = document.getElementById("popup-message");
+
+  if (!overlay || !messageEl) return;
+
+  messageEl.textContent = message;
+  showPopup(overlay);
+}
+
+function showLoadingThenMessage(message) {
+  const overlay = document.getElementById("popup-overlay");
+  const messageEl = document.getElementById("popup-message");
+  const progressBar = document.getElementById("popup-progress-bar");
+
+  if (!overlay || !messageEl || !progressBar) return;
+
+  messageEl.textContent = "making things okay...";
+  progressBar.style.width = "0%";
+
+  showPopup(overlay);
+
+  let progress = 0;
+
+  const interval = setInterval(() => {
+    progress += Math.random() * 25; // random biar terasa natural
+    if (progress >= 100) progress = 100;
+
+    progressBar.style.width = progress + "%";
+
+    if (progress === 100) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        messageEl.textContent = message;
+      }, 300);
+    }
+  }, 300);
 }
