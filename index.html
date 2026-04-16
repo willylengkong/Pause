@@ -113,22 +113,44 @@
               <p>
                 Kami percaya bahwa kesederhanaan bisa menjadi pelarian yang
                 paling jujur. Tidak ada yang harus kamu capai di sini. Cukup
-                hadir.
+                hadir. Coba Yuk tenangin diri kamu di sini.
               </p>
             </div>
 
-            <div class="about-meta fade-in" aria-label="Website details">
-              <div class="about-meta-item">
-                <span class="meta-label">Target</span>
-                <span class="meta-value">Usia 18–25 tahun</span>
+            <div
+              class="breathe-section fade-in"
+              aria-label="Breathing exercise"
+            >
+              <div class="breathe-steps">
+                <div class="breathe-step">
+                  <span class="meta-label">Hirup</span>
+                  <span class="meta-value">Tarik napas dalam... 4 detik</span>
+                </div>
+                <div class="breathe-step">
+                  <span class="meta-label">Tahan</span>
+                  <span class="meta-value">Rasakan kehadiranmu... 4 detik</span>
+                </div>
+                <div class="breathe-step">
+                  <span class="meta-label">Hembuskan</span>
+                  <span class="meta-value">Lepaskan perlahan... 4 detik</span>
+                </div>
               </div>
-              <div class="about-meta-item">
-                <span class="meta-label">Kategori</span>
-                <span class="meta-value">Web Profile</span>
-              </div>
-              <div class="about-meta-item">
-                <span class="meta-label">Tagline</span>
-                <span class="meta-value">Mental Health</span>
+
+              <div class="breathe-widget" id="breathe-widget">
+                <div class="breathe-circle" id="breathe-circle">
+                  <span
+                    class="breathe-phase-text"
+                    id="breathe-phase-text"
+                  ></span>
+                  <span class="breathe-timer" id="breathe-timer"></span>
+                </div>
+                <button
+                  class="breathe-btn"
+                  id="breathe-btn"
+                  aria-label="Mulai latihan pernapasan"
+                >
+                  coba sekarang
+                </button>
               </div>
             </div>
           </div>
@@ -378,6 +400,36 @@
         >
           okay
         </button>
+      </div>
+    </div>
+
+    <!-- Breathe Done Popup -->
+    <div
+      class="breathe-popup-overlay"
+      id="breathe-popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="breathe-popup-msg"
+      aria-hidden="true"
+    >
+      <div class="breathe-popup-card">
+        <p id="breathe-popup-msg" class="breathe-popup-message">
+          everything is fine okay :)
+        </p>
+        <div class="breathe-popup-actions">
+          <button
+            class="breathe-popup-btn breathe-popup-btn--secondary"
+            id="breathe-popup-retry"
+          >
+            Still not good?
+          </button>
+          <button
+            class="breathe-popup-btn breathe-popup-btn--primary"
+            id="breathe-popup-ok"
+          >
+            Okay
+          </button>
+        </div>
       </div>
     </div>
 

@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initFeelingsInteraction();
   initOkButton();
+  initBreathingExercise();
 });
 
 /* ============================================================
@@ -171,16 +172,18 @@ function initFeelingsInteraction() {
   const cards = document.querySelectorAll(".feeling-card");
 
   const messages = {
-    tired: "ya... capek ya. boleh istirahat sebentar.",
-    anxious: "pelan-pelan. kamu aman sekarang.",
-    overthinking: "tidak semua harus kamu selesaikan hari ini.",
+    tired: "ya... capek ya. boleh istirahat sebentar kok.",
+    anxious: "tenang yahhh. ga semua harus sekaligus selesai kok.",
+    overthinking:
+      "Fokus sama yang sekarang dulu, ga harus dipikirin terus yah.",
   };
 
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       const title = card
         .querySelector(".feeling-title")
-        ?.textContent.toLowerCase();
+        ?.textContent.trim()
+        .toLowerCase();
 
       if (messages[title]) {
         showCustomMessage(messages[title]);
@@ -196,4 +199,155 @@ function initOkButton() {
   btn.addEventListener("click", () => {
     showLoadingThenMessage("Everything is OK now");
   });
+}
+
+/* ============================================================
+   Breathing Exercise — 4-4-4 guided breathing
+   ============================================================ */
+function initBreathingExercise() {
+  const btn = document.getElementById("breathe-btn");
+  const circle = document.getElementById("breathe-circle");
+  const phaseText = document.getElementById("breathe-phase-text");
+  const timerText = document.getElementById("breathe-timer");
+
+  if (!btn || !circle || !phaseText || !timerText) return;
+
+  const PHASES = [
+    { name: "Hirup...", className: "is-inhale", duration: 4 },
+    { name: "Tahan...", className: "is-hold", duration: 4 },
+    { name: "Hembuskan...", className: "is-exhale", duration: 4 },
+  ];
+
+  const TOTAL_CYCLES = 3;
+  let running = false;
+  let timerId = null;
+  let phaseTimeout = null;
+
+  btn.addEventListener("click", () => {
+    if (running) {
+      stopBreathing();
+    } else {
+      startBreathing();
+    }
+  });
+
+  function startBreathing() {
+    running = true;
+    btn.textContent = "berhenti";
+    btn.classList.add("is-active");
+    runCycle(0, 0);
+  }
+
+  function stopBreathing() {
+    running = false;
+    clearInterval(timerId);
+    clearTimeout(phaseTimeout);
+    btn.textContent = "coba sekarang";
+    btn.classList.remove("is-active");
+    circle.classList.remove("is-inhale", "is-hold", "is-exhale");
+    phaseText.textContent = "";
+    timerText.textContent = "";
+  }
+
+  function runCycle(cycleIndex, phaseIndex) {
+    if (!running) return;
+    if (cycleIndex >= TOTAL_CYCLES) {
+      finishBreathing();
+      return;
+    }
+
+    const phase = PHASES[phaseIndex];
+    setPhase(phase);
+
+    let remaining = phase.duration;
+    timerText.textContent = remaining;
+
+    timerId = setInterval(() => {
+      remaining--;
+      if (remaining > 0) {
+        timerText.textContent = remaining;
+      } else {
+        timerText.textContent = "";
+        clearInterval(timerId);
+      }
+    }, 1000);
+
+    phaseTimeout = setTimeout(() => {
+      const nextPhase = phaseIndex + 1;
+      if (nextPhase < PHASES.length) {
+        runCycle(cycleIndex, nextPhase);
+      } else {
+        runCycle(cycleIndex + 1, 0);
+      }
+    }, phase.duration * 1000);
+  }
+
+  function setPhase(phase) {
+    circle.classList.remove("is-inhale", "is-hold", "is-exhale");
+    // Force reflow so the transition restarts cleanly
+    void circle.offsetWidth;
+    circle.classList.add(phase.className);
+    phaseText.textContent = phase.name;
+  }
+
+  function finishBreathing() {
+    running = false;
+    clearInterval(timerId);
+    btn.textContent = "ulangi";
+    btn.classList.remove("is-active");
+    circle.classList.remove("is-inhale", "is-hold", "is-exhale");
+    phaseText.textContent = "";
+    timerText.textContent = "";
+    showBreathePopup();
+  }
+
+  /* Breathe-done popup */
+  const popupOverlay = document.getElementById("breathe-popup-overlay");
+  const popupOk = document.getElementById("breathe-popup-ok");
+  const popupRetry = document.getElementById("breathe-popup-retry");
+
+  function showBreathePopup() {
+    if (!popupOverlay) return;
+    popupOverlay.removeAttribute("aria-hidden");
+    popupOverlay.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    if (popupOk) setTimeout(() => popupOk.focus(), 300);
+  }
+
+  function hideBreathePopup() {
+    if (!popupOverlay) return;
+    popupOverlay.setAttribute("aria-hidden", "true");
+    popupOverlay.classList.remove("is-visible");
+    document.body.style.overflow = "";
+  }
+
+  if (popupOk) {
+    popupOk.addEventListener("click", () => {
+      hideBreathePopup();
+      btn.textContent = "coba sekarang";
+    });
+  }
+
+  if (popupRetry) {
+    popupRetry.addEventListener("click", () => {
+      hideBreathePopup();
+      startBreathing();
+    });
+  }
+
+  if (popupOverlay) {
+    popupOverlay.addEventListener("click", (e) => {
+      if (e.target === popupOverlay) {
+        hideBreathePopup();
+        btn.textContent = "coba sekarang";
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popupOverlay.classList.contains("is-visible")) {
+        hideBreathePopup();
+        btn.textContent = "coba sekarang";
+      }
+    });
+  }
 }

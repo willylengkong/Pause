@@ -122,6 +122,10 @@
     transform: none;
   }
 
+  .breathe-circle {
+    transition-duration: 0.01ms !important;
+  }
+
   html {
     scroll-behavior: auto;
   }

@@ -878,3 +878,235 @@ blockquote {
 #ok-button:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
 }
+
+/* Breathing Exercise */
+.breathe-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.breathe-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.breathe-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background-color: var(--color-bg-secondary);
+  transition: border-color var(--transition-base);
+}
+
+.breathe-step:hover {
+  border-color: var(--color-border-hover);
+}
+
+.breathe-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.breathe-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition:
+    transform 4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.6s ease,
+    box-shadow 0.6s ease;
+  position: relative;
+}
+
+.breathe-circle.is-inhale {
+  transform: scale(1.35);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 0 40px rgba(229, 229, 229, 0.06);
+}
+
+.breathe-circle.is-hold {
+  transform: scale(1.35);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 0 30px rgba(229, 229, 229, 0.04);
+  transition:
+    transform 4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+.breathe-circle.is-exhale {
+  transform: scale(1);
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+.breathe-phase-text {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: opacity var(--transition-base);
+}
+
+.breathe-timer {
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.breathe-btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-xl);
+  border: 1px solid var(--color-border-hover);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.breathe-btn:hover {
+  color: var(--color-bg);
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.breathe-btn.is-active {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.breathe-btn.is-active:hover {
+  color: var(--color-bg);
+  background-color: var(--color-text);
+}
+
+/* Breathe Done Popup */
+.breathe-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background-color: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+}
+
+.breathe-popup-overlay.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.breathe-popup-card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-hover);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  transform: translateY(16px);
+  transition: transform var(--transition-slow);
+}
+
+.breathe-popup-overlay.is-visible .breathe-popup-card {
+  transform: translateY(0);
+}
+
+.breathe-popup-message {
+  font-size: var(--fs-lg);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.breathe-popup-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.breathe-popup-btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.breathe-popup-btn--secondary {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.breathe-popup-btn--secondary:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.breathe-popup-btn--primary {
+  border: 1px solid var(--color-border-hover);
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.breathe-popup-btn--primary:hover {
+  color: var(--color-bg);
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+@media (max-width: 600px) {
+  .breathe-steps {
+    flex-direction: column;
+  }
+
+  .breathe-circle {
+    width: 130px;
+    height: 130px;
+  }
+}

@@ -74,13 +74,20 @@ pause/
 ### About
 
 - Layout dua kolom: teks + ilustrasi SVG
-- 3 metadata card: Target, Kategori, Tagline
+- **Breathing Exercise (4-4-4)** — menggantikan metadata card sebelumnya:
+  - 3 langkah statis: Hirup (4s), Tahan (4s), Hembuskan (4s)
+  - Lingkaran animasi interaktif yang membesar saat inhale, diam saat hold, mengecil saat exhale
+  - Tombol "coba sekarang" untuk memulai guided breathing, bisa di-stop kapan saja
+  - Setelah 3 siklus selesai, muncul popup "everything is fine okay :)" dengan dua pilihan:
+    - **"Still not good?"** (kiri) — memulai ulang sesi breathing
+    - **"Okay"** (kanan) — menutup popup
 - Elemen masuk dengan `fade-in` saat scroll ke viewport
 
 ### Feelings
 
 - Grid 3 kartu: **Tired**, **Anxious**, **Overthinking**
 - Setiap kartu berisi: ilustrasi SVG, deskripsi, tips praktis, dan kutipan
+- **Klik kartu** → muncul popup dengan pesan personal untuk masing-masing perasaan
 - Kartu masuk secara berurutan dengan stagger delay (`0ms`, `120ms`, `240ms`)
 - Hover effect: `translateY(-4px)` + border lebih terang
 
@@ -101,6 +108,11 @@ pause/
 - Dapat ditutup dengan: tombol "okay, I'll pause.", klik area luar card, atau tekan `Escape`
 - Tidak akan stack/tumpuk jika sudah sedang tampil
 - Background scroll dikunci saat popup terbuka
+
+### Tombol "Make Everything OK"
+
+- Berada di footer, klik untuk mendapat pesan afirmasi "Everything is OK now"
+- Menampilkan loading animation sebelum pesan muncul
 
 ### Footer
 
@@ -141,11 +153,12 @@ Atau gunakan live server (misalnya ekstensi Live Server di VS Code) untuk pengal
 <header>  — Navbar fixed
 <main>
   ├── #home       — Hero section
-  ├── #about      — Tentang Pause
+  ├── #about      — Tentang Pause + Breathing Exercise
   ├── #feelings   — Kartu perasaan (Tired, Anxious, Overthinking)
   └── #faq        — FAQ accordion
-<footer>  — Kredit
-<div#popup-overlay> — Popup reflektif (di luar <main>)
+<footer>  — Kredit + Tombol "make everything ok"
+<div#popup-overlay>          — Popup reflektif (idle/interval)
+<div#breathe-popup-overlay>  — Popup selesai breathing exercise
 ```
 
 ---
@@ -191,16 +204,18 @@ Semua nilai desain didefinisikan sebagai CSS Custom Properties di `:root` dalam 
 
 ### `main.js`
 
-Diinisialisasi saat `DOMContentLoaded`. Memanggil 6 fungsi:
+Diinisialisasi saat `DOMContentLoaded`. Memanggil 8 fungsi:
 
-| Fungsi                  | Tugas                                                              |
-| ----------------------- | ------------------------------------------------------------------ |
-| `initNavbarScroll()`    | Toggle class `is-scrolled` pada header saat scroll > 40px          |
-| `initSmoothScroll()`    | Intercept klik anchor `href="#..."` untuk smooth scroll            |
-| `initActiveNavLinks()`  | Highlight nav link sesuai section aktif via `IntersectionObserver` |
-| `initFadeInObserver()`  | Tambah class `is-visible` ke `.fade-in` saat masuk viewport        |
-| `initSvgDrawObserver()` | Tambah class `is-drawn` ke container SVG saat masuk viewport       |
-| `initFaqAccordion()`    | Handle expand/collapse FAQ dengan keyboard support                 |
+| Fungsi                      | Tugas                                                                      |
+| --------------------------- | -------------------------------------------------------------------------- |
+| `initNavbarScroll()`        | Toggle class `is-scrolled` pada header saat scroll > 40px                  |
+| `initSmoothScroll()`        | Intercept klik anchor `href="#..."` untuk smooth scroll                    |
+| `initActiveNavLinks()`      | Highlight nav link sesuai section aktif via `IntersectionObserver`         |
+| `initFadeInObserver()`      | Tambah class `is-visible` ke `.fade-in` saat masuk viewport                |
+| `initFaqAccordion()`        | Handle expand/collapse FAQ dengan keyboard support                         |
+| `initFeelingsInteraction()` | Klik kartu perasaan → popup pesan personal per perasaan                    |
+| `initOkButton()`            | Tombol "make everything ok" → pesan afirmasi dengan loading                |
+| `initBreathingExercise()`   | Guided breathing 4-4-4 (3 siklus) dengan animasi lingkaran + popup selesai |
 
 ### `popup.js`
 
