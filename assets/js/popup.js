@@ -1,13 +1,10 @@
-/* ============================================================
-   PAUSE — popup.js
-   Reflective message popup — triggers after 15s on page
-   Shows a random message, can be dismissed by button or
-   clicking the overlay backdrop
-   ============================================================ */
+// PAUSE — popup.js
+// Reflective message popup — forces every 30s regardless of user activity
+// Dismissible via button, backdrop click, or Escape key
 
 "use strict";
 
-/* ---- Reflective messages pool ---- */
+// Reflective messages pool
 const REFLECTIVE_MESSAGES = [
   "Sudahkah kamu menarik napas dalam hari ini?",
   "Ambil waktu sejenak. Kamu tidak harus produktif setiap detik.",
@@ -16,11 +13,12 @@ const REFLECTIVE_MESSAGES = [
   "Satu napas dalam. Pelan-pelan. Kamu tidak harus terburu-buru.",
 ];
 
-/* ---- Timing constants ---- */
-const IDLE_THRESHOLD_MS = 1500000; // show after 15s of no activity
-const MAX_INTERVAL_MS = 300000; // always show at least every 30s
+const POPUP_INTERVAL_MS = 30000; // force popup every 30s
 
-/* ---- Initialize popup logic ---- */
+// Module-level so hidePopup can reset it
+let lastPopupShown = Date.now();
+
+// Initialize popup logic
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("popup-overlay");
   const closeBtn = document.getElementById("popup-close");
@@ -28,42 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!overlay || !closeBtn || !messageEl) return;
 
-  let lastActivity = Date.now();
-  let lastPopupShown = Date.now();
-
-  // Track any user activity
-  const activityEvents = [
-    "mousemove",
-    "scroll",
-    "keydown",
-    "click",
-    "touchstart",
-  ];
-  activityEvents.forEach((evt) =>
-    window.addEventListener(
-      evt,
-      () => {
-        lastActivity = Date.now();
-      },
-      { passive: true },
-    ),
-  );
-
-  // Check every second whether to show popup
+  // Force popup every 30 seconds regardless of user activity
   setInterval(() => {
     if (overlay.classList.contains("is-visible")) return;
-
-    const now = Date.now();
-    const idleTime = now - lastActivity;
-    const timeSince = now - lastPopupShown;
-
-    const shouldShowIdle = idleTime >= IDLE_THRESHOLD_MS;
-    const shouldShowForced = timeSince >= MAX_INTERVAL_MS;
-
-    if (shouldShowIdle || shouldShowForced) {
+    if (Date.now() - lastPopupShown >= POPUP_INTERVAL_MS) {
       messageEl.textContent = pickRandom(REFLECTIVE_MESSAGES);
       showPopup(overlay);
-      lastPopupShown = now;
+      lastPopupShown = Date.now();
     }
   }, 1000);
 
@@ -83,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* ---- Show popup ---- */
+// Show popup
 function showPopup(overlay) {
   overlay.removeAttribute("aria-hidden");
   overlay.classList.add("is-visible");
@@ -99,14 +68,15 @@ function showPopup(overlay) {
   document.body.style.overflow = "hidden";
 }
 
-/* ---- Hide popup ---- */
+// Hide popup
 function hidePopup(overlay) {
   overlay.classList.remove("is-visible");
   overlay.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  lastPopupShown = Date.now(); // reset timer so popup waits another 30s before reshowing
 }
 
-/* ---- Pick random item from array ---- */
+// Pick random item from array
 function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }

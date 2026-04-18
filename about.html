@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pause — Tempat kecil untuk berhenti sejenak dan melatih pernapasan."
+    />
+    <title>Pause - About</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/images/line-art/favicon.svg"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/animations.css" />
+  </head>
+  <body>
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navbar -->
+    <header class="site-header" role="banner">
+      <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <a
+          href="index.html"
+          class="navbar-brand"
+          aria-label="Pause — back to home"
+          >pause.</a
+        >
+        <ul class="navbar-nav" role="list">
+          <li class="nav-item" role="listitem">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item" role="listitem">
+            <a href="about.html" class="nav-link is-active">About</a>
+          </li>
+          <li class="nav-item" role="listitem">
+            <a href="feelings.html" class="nav-link">Feelings</a>
+          </li>
+          <li class="nav-item" role="listitem">
+            <a href="faq.html" class="nav-link">FAQ</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main id="main-content" role="main">
+      <!-- About Hero 1 -->
+      <section
+        id="about"
+        class="section about-section"
+        aria-labelledby="about-title"
+      >
+        <div class="section-container">
+          <div class="about-content">
+            <span class="section-label fade-in">About Us</span>
+            <h2 id="about-title" class="section-title fade-in">
+              Tempat kecil untuk<br /><em>berhenti sejenak.</em>
+            </h2>
+            <div class="about-body fade-in">
+              <p>
+                Pause bukan tentang solusi instan. Bukan tentang motivasi
+                berlebihan. Ini adalah ruang sederhana untuk kamu yang sedang
+                lelah, cemas, atau terlalu banyak berpikir.
+              </p>
+              <p>
+                Kami percaya bahwa kesederhanaan bisa menjadi pelarian yang
+                paling jujur. Tidak ada yang harus kamu capai di sini. Cukup
+                hadir. Coba Yuk tenangin diri kamu di sini.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-art fade-in" aria-hidden="true">
+            <img src="assets/images/line-art/about-line.svg" alt="" />
+          </div>
+        </div>
+        <div class="about-scroll-hint fade-in" aria-hidden="true">
+          <span class="scroll-text">scroll</span>
+          <span class="scroll-line"></span>
+        </div>
+      </section>
+
+      <!-- About Hero 2 — Origin Story -->
+      <section
+        id="origin"
+        class="section about-origin-section"
+        aria-labelledby="origin-title"
+      >
+        <div class="section-container">
+          <h2 class="origin-heading fade-in" id="origin-title">
+            Mengapa Pause<br /><em>lahir?</em>
+          </h2>
+          <div class="origin-container">
+            <div class="origin-img fade-in" aria-hidden="true">
+              <img src="resources/img/health_image.png" alt="" />
+            </div>
+
+            <div class="origin-story fade-in" aria-labelledby="origin-title">
+              <p class="origin-text">
+                Semuanya dimulai dari rasa jenuh melihat betapa sulitnya
+                orang-orang menemukan ruang untuk sekadar berhenti. Dunia tidak
+                pernah memberi izin untuk melambat, jadi kami membangunnya
+                sendiri.
+              </p>
+              <blockquote class="origin-quote">
+                <p>
+                  "Kami bukan platform kesehatan mental. Kami hanya teman yang
+                  ada di saat kamu butuh jeda."
+                </p>
+              </blockquote>
+              <a href="feelings.html" class="origin-cta">
+                Kalau kamu lagi ngerasa penuh, coba mulai klik aku dari sini.
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-container">
+        <p class="footer-brand">pause.</p>
+        <p class="footer-tagline">Take a breath. You're doing okay.</p>
+        <p class="footer-credit">Made with care — we are from Vesta, 2026 :)</p>
+      </div>
+      <br />
+      <br />
+      <div class="ok-section">
+        <button id="ok-button">make everything ok</button>
+      </div>
+    </footer>
+
+    <!-- Popup -->
+    <div
+      class="popup-overlay"
+      id="popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="popup-message"
+      aria-hidden="true"
+    >
+      <div class="popup-card">
+        <div class="popup-art" aria-hidden="true">
+          <img src="assets/images/line-art/popup-circles.svg" alt="" />
+        </div>
+        <p id="popup-message" class="popup-message" aria-live="polite"></p>
+        <div class="popup-progress">
+          <div class="popup-progress-bar" id="popup-progress-bar"></div>
+        </div>
+        <button
+          class="popup-close"
+          id="popup-close"
+          aria-label="Tutup pesan reflektif"
+        >
+          okay, I'll pause. Done Popup -->
+    <div
+      class="breathe-popup-overlay"
+      id="breathe-popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="breathe-popup-msg"
+      aria-hidden="true"
+    >
+      <div class="breathe-popup-card">
+        <p id="breathe-popup-msg" class="breathe-popup-message">
+          everything is fine okay :)
+        </p>
+        <div class="breathe-popup-actions">
+          <button
+            class="breathe-popup-btn breathe-popup-btn--secondary"
+            id="breathe-popup-retry"
+          >
+            Still not good?
+          </button>
+          <button
+            class="breathe-popup-btn breathe-popup-btn--primary"
+            id="breathe-popup-ok"
+          >
+            Okay
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/popup.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

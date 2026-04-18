@@ -1,15 +1,11 @@
-/* ============================================================
-   PAUSE — main.js
-   Handles: scroll animations, active nav highlighting,
-            FAQ accordion, SVG draw trigger, navbar scroll state
-   ============================================================ */
+// PAUSE — main.js
+// Handles: scroll animations, active nav highlighting, FAQ accordion, navbar scroll state
 
 "use strict";
 
-/* ---- Wait for DOM to be ready ---- */
+// Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
   initNavbarScroll();
-  initSmoothScroll();
   initActiveNavLinks();
   initFadeInObserver();
   initFaqAccordion();
@@ -19,9 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initBreathingExercise();
 });
 
-/* ============================================================
-   Navbar — add background on scroll
-   ============================================================ */
+// Navbar — add background on scroll
 function initNavbarScroll() {
   const header = document.querySelector(".site-header");
   if (!header) return;
@@ -35,66 +29,20 @@ function initNavbarScroll() {
   onScroll(); // Run once on load in case page is already scrolled
 }
 
-/* ============================================================
-   Smooth scroll — intercept anchor href clicks
-   ============================================================ */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", (e) => {
-      const targetId = anchor.getAttribute("href");
-      if (targetId === "#") return;
+// Active nav links — highlight based on current page URL
+function initActiveNavLinks() {
+  const navLinks = document.querySelectorAll(".nav-link");
+  if (!navLinks.length) return;
 
-      const target = document.querySelector(targetId);
-      if (!target) return;
+  const page = window.location.pathname.split("/").pop() || "index.html";
 
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-
-      // Update URL without triggering a hard jump
-      history.pushState(null, "", targetId);
-    });
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    link.classList.toggle("is-active", href === page);
   });
 }
 
-/* ============================================================
-   Active nav links — highlight based on current section
-   ============================================================ */
-function initActiveNavLinks() {
-  const sections = document.querySelectorAll(".section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
-  if (!sections.length || !navLinks.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        const id = entry.target.getAttribute("id");
-        navLinks.forEach((link) => {
-          link.classList.toggle(
-            "is-active",
-            link.getAttribute("href") === `#${id}`,
-          );
-        });
-      });
-    },
-    {
-      // Trigger when section crosses ~25% of viewport
-      threshold: 0.25,
-      rootMargin: `-${
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--navbar-height",
-        ) || "70px"
-      } 0px 0px 0px`,
-    },
-  );
-
-  sections.forEach((section) => observer.observe(section));
-}
-
-/* ============================================================
-   Fade-in on scroll — IntersectionObserver for .fade-in
-   ============================================================ */
+// Fade-in on scroll — IntersectionObserver for .fade-in
 function initFadeInObserver() {
   const elements = document.querySelectorAll(".fade-in");
   if (!elements.length) return;
@@ -116,9 +64,7 @@ function initFadeInObserver() {
 
   elements.forEach((el) => observer.observe(el));
 }
-/* ============================================================
-   FAQ accordion — accessible expand / collapse
-   ============================================================ */
+// FAQ accordion — accessible expand / collapse
 function initFaqAccordion() {
   const questions = document.querySelectorAll(".faq-question");
   if (!questions.length) return;
@@ -201,9 +147,7 @@ function initOkButton() {
   });
 }
 
-/* ============================================================
-   Breathing Exercise — 4-4-4 guided breathing
-   ============================================================ */
+// Breathing Exercise — 4-4-4 guided breathing
 function initBreathingExercise() {
   const btn = document.getElementById("breathe-btn");
   const circle = document.getElementById("breathe-circle");
