@@ -1,6 +1,4 @@
 // PAUSE — popup.js
-// Reflective message popup — forces every 30s regardless of user activity
-// Dismissible via button, backdrop click, or Escape key
 
 "use strict";
 

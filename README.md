@@ -34,7 +34,10 @@ Pause bukan tentang solusi instan atau motivasi berlebihan. Ini adalah ruang sed
 
 ```
 pause/
-├── index.html                  # Entry point — seluruh struktur halaman
+├── index.html                  # Halaman utama — Hero
+├── about.html                  # Halaman About + Breathing Exercise
+├── feelings.html               # Halaman Feelings — kartu perasaan
+├── faq.html                    # Halaman FAQ accordion
 └── assets/
     ├── css/
     │   ├── style.css           # Global styles, variabel, komponen
@@ -44,13 +47,13 @@ pause/
     │   └── popup.js            # Sistem popup reflektif
     └── images/
         └── line-art/
-            ├── home-bg.svg     # Ilustrasi hero
-            ├── about-line.svg  # Ilustrasi section About
-            ├── tired.svg       # Ilustrasi kartu Tired
-            ├── anxious.svg     # Ilustrasi kartu Anxious
-            ├── overthinking.svg# Ilustrasi kartu Overthinking
+            ├── home-bg.svg       # Ilustrasi hero
+            ├── about-line.svg    # Ilustrasi section About
+            ├── tired.svg         # Ilustrasi kartu Tired
+            ├── anxious.svg       # Ilustrasi kartu Anxious
+            ├── overthinking.svg  # Ilustrasi kartu Overthinking
             ├── popup-circles.svg # Ilustrasi popup
-            └── favicon-svg.svg # Favicon
+            └── favicon-svg.svg   # Favicon
 ```
 
 ---
@@ -78,9 +81,8 @@ pause/
   - 3 langkah statis: Hirup (4s), Tahan (4s), Hembuskan (4s)
   - Lingkaran animasi interaktif yang membesar saat inhale, diam saat hold, mengecil saat exhale
   - Tombol "coba sekarang" untuk memulai guided breathing, bisa di-stop kapan saja
-  - Setelah 3 siklus selesai, muncul popup "everything is fine okay :)" dengan dua pilihan:
-    - **"Still not good?"** (kiri) — memulai ulang sesi breathing
-    - **"Okay"** (kanan) — menutup popup
+  - Setelah 3 siklus selesai, muncul popup "everything is fine okay :)" dengan satu pilihan:
+    - **"Okay"** — menutup popup
 - Elemen masuk dengan `fade-in` saat scroll ke viewport
 
 ### Feelings
@@ -101,11 +103,9 @@ pause/
 
 ### Popup Reflektif
 
-- Muncul otomatis dengan dua kondisi:
-  - **Idle ≥ 15 detik** — jika halaman didiamkan tanpa interaksi apapun
-  - **Paksa setiap 30 detik** — meskipun user sedang aktif scroll/berinteraksi
+- Muncul otomatis **setiap 30 detik** — terlepas dari aktivitas user
 - Menampilkan pesan acak dari pool 5 pesan berbahasa Indonesia
-- Dapat ditutup dengan: tombol "okay, I'll pause.", klik area luar card, atau tekan `Escape`
+- Dapat ditutup dengan: tombol "Okay", klik area luar card, atau tekan `Escape`
 - Tidak akan stack/tumpuk jika sudah sedang tampil
 - Background scroll dikunci saat popup terbuka
 
@@ -150,15 +150,35 @@ Atau gunakan live server (misalnya ekstensi Live Server di VS Code) untuk pengal
 ## Struktur Halaman
 
 ```
-<header>  — Navbar fixed
-<main>
-  ├── #home       — Hero section
-  ├── #about      — Tentang Pause + Breathing Exercise
-  ├── #feelings   — Kartu perasaan (Tired, Anxious, Overthinking)
-  └── #faq        — FAQ accordion
-<footer>  — Kredit + Tombol "make everything ok"
-<div#popup-overlay>          — Popup reflektif (idle/interval)
-<div#breathe-popup-overlay>  — Popup selesai breathing exercise
+index.html
+├── <header>  — Navbar fixed
+└── <main>
+    └── #home — Hero section
+    <div#popup-overlay>  — Popup reflektif (interval 30s)
+
+about.html
+├── <header>  — Navbar fixed
+└── <main>
+    └── #about — Tentang Pause + Breathing Exercise
+    <div#popup-overlay>         — Popup reflektif
+    <div#breathe-popup-overlay> — Popup selesai breathing exercise
+
+feelings.html
+├── <header>  — Navbar fixed
+└── <main>
+    └── #feelings — Kartu perasaan (Tired, Anxious, Overthinking)
+    <div#popup-overlay>         — Popup reflektif
+    <div#breathe-popup-overlay> — Popup selesai breathing exercise
+
+faq.html
+├── <header>  — Navbar fixed
+└── <main>
+    └── #faq — FAQ accordion
+    <div#popup-overlay>         — Popup reflektif
+    <div#breathe-popup-overlay> — Popup selesai breathing exercise
+
+Semua halaman
+└── <footer>  — Kredit + Tombol "make everything ok"
 ```
 
 ---
@@ -221,10 +241,9 @@ Diinisialisasi saat `DOMContentLoaded`. Memanggil 8 fungsi:
 
 | Konstanta           | Nilai   | Keterangan                         |
 | ------------------- | ------- | ---------------------------------- |
-| `IDLE_THRESHOLD_MS` | `15000` | Popup muncul setelah 15 detik idle |
-| `MAX_INTERVAL_MS`   | `30000` | Popup muncul paksa setiap 30 detik |
+| `POPUP_INTERVAL_MS` | `30000` | Popup muncul paksa setiap 30 detik |
 
-Activity tracking: `mousemove`, `scroll`, `keydown`, `click`, `touchstart`
+Popup muncul otomatis via `setInterval` setiap detik yang mengecek apakah sudah ≥ 30 detik sejak popup terakhir ditutup.
 
 ---
 
