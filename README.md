@@ -1,4 +1,4 @@
-# pause.
+# pause
 
 > _Berhenti sejenak. Rasakan ini._
 
@@ -65,7 +65,7 @@ pause/
 
 ### Hero (Home)
 
-- Judul besar `pause.` dengan ukuran responsif hingga `9rem`
+- Judul besar `pause` dengan ukuran responsif hingga `9rem`
 - 3 lingkaran konsentris berdenyut (`pulse-ring`) sebagai background dekoratif
 - SVG ilustrasi melayang pelan (`float-slow`)
 - Scroll cue (teks + garis animasi `scroll-bounce`) sebagai ajakan scroll ke bawah
@@ -105,7 +105,7 @@ pause/
   - **Idle ≥ 15 detik** — jika halaman didiamkan tanpa interaksi apapun
   - **Paksa setiap 30 detik** — meskipun user sedang aktif scroll/berinteraksi
 - Menampilkan pesan acak dari pool 5 pesan berbahasa Indonesia
-- Dapat ditutup dengan: tombol "okay, I'll pause.", klik area luar card, atau tekan `Escape`
+- Dapat ditutup dengan: tombol "okay, I'll pause", klik area luar card, atau tekan `Escape`
 - Tidak akan stack/tumpuk jika sudah sedang tampil
 - Background scroll dikunci saat popup terbuka
 
@@ -116,7 +116,7 @@ pause/
 
 ### Footer
 
-- Brand `pause.`, tagline, dan kredit pembuat
+- Brand `pause`, tagline, dan kredit pembuat
 
 ---
 

@@ -350,7 +350,7 @@ blockquote {
 }
 
 .home-tagline {
-  font-size: clamp(var(--fs-md), 2.5vw, var(--fs-xl));
+  font-size: clamp(var(--fs-md), 2, var(--fs-xl));
   font-weight: 300;
   color: var(--color-text-muted);
   line-height: 1.5;
